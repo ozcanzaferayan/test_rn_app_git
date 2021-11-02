@@ -128,22 +128,26 @@ static NSString *enableBundleStore = @"enableBundleStore";
 #pragma mark - Public Methods
 
 + (void)startWithConfigurations:(id<ElectrodePluginConfig>)reactContainerConfig
+                electrodeCodePushConfig: (id<ElectrodePluginConfig>) electrodeCodePushConfig
 {
     id sharedInstance = [ElectrodeReactNative sharedInstance];
     static dispatch_once_t startOnceToken;
     dispatch_once(&startOnceToken, ^{
         [sharedInstance startContainerWithConfiguration:reactContainerConfig ernDelegate:nil
+         electrodeCodePushConfig:electrodeCodePushConfig
 ];
     });
 }
 
 + (void)startWithConfigurations:(id<ElectrodePluginConfig>)reactContainerConfig ernDelegate:(id<ERNDelegate> _Nullable)ernDelegate
+                electrodeCodePushConfig: (id<ElectrodePluginConfig> _Nullable) electrodeCodePushConfig
 
 {
     id sharedInstance = [ElectrodeReactNative sharedInstance];
     static dispatch_once_t startOnceToken;
     dispatch_once(&startOnceToken, ^{
         [sharedInstance startContainerWithConfiguration:reactContainerConfig ernDelegate:ernDelegate
+         electrodeCodePushConfig:electrodeCodePushConfig
 ];
     });
 }
@@ -239,10 +243,12 @@ static NSString *enableBundleStore = @"enableBundleStore";
 #pragma mark - Convenience Methods
 
 - (void)startContainerWithConfiguration:(id<ElectrodePluginConfig>)reactContainerConfig ernDelegate:(id<ERNDelegate>)ernDelegate
+                electrodeCodePushConfig: (id<ElectrodePluginConfig>) electrodeCodePushConfig
 {
     ElectrodeBridgeDelegate *delegate = [[ElectrodeBridgeDelegate alloc] init];
 
     [reactContainerConfig setupConfigWithDelegate:delegate];
+            [electrodeCodePushConfig setupConfigWithDelegate:delegate];
 
     RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:delegate launchOptions:nil];
     self.bridge = bridge;

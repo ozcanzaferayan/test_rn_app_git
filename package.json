@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "react-native": "0.64.0",
-    "react-native-electrode-bridge": "1.5.27"
+    "react-native-electrode-bridge": "1.5.27",
+    "react-native-code-push": "6.2.0"
   },
   "name": "container",
   "private": true
